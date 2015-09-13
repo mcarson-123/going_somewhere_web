@@ -1,0 +1,8 @@
+<%= form_for(@trip) do |trip| %>
+
+  <div class="field">
+    <%= trip.label "New Trip" %><br />
+    <%= trip.text_field :name %>
+  </div>
+
+<% end %>

@@ -1,0 +1,9 @@
+<%= form_for(@new_list_item) do |list_item| %>
+
+  <div class="field">
+    <%= list_item.label :name %><br />
+    <%= list_item.text_field :name %>
+    <%= hidden_field(:list_item, :list_id, value: @list.id) %>
+  </div>
+
+<% end %>

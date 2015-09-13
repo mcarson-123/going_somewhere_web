@@ -1,0 +1,8 @@
+<%- @list_items.each do |list_item| %>
+<ul>
+  <li>
+    <%= list_item.name %>
+    <%= button_to "delete", list_item_path(id: list_item.id, list_id: list_item.list_id), method: :delete %>
+  </li>
+</ul>
+<%end%>

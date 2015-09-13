@@ -1,0 +1,9 @@
+<%- @trips.each do |trip| %>
+  <ul>
+    <li><%= link_to trip.name, trip_path(id: trip.id) %></li>
+    <li><%= trip.created_at %></li>
+    <li><%= trip.updated_at %></li>
+  </ul>
+  <%= button_to "delete", trip_path(id: trip.id), method: :delete %>
+<%end%>
+<%= render partial:"trips/new" %>

@@ -1,8 +1,9 @@
 <%= form_for(@list) do |list| %>
 
   <div class="field">
-    <%= list.label :name %><br />
+    <%= list.label "New List" %><br />
     <%= list.text_field :name %>
+    <%= hidden_field(:list, :trip_id, value: @trip.id) %>
   </div>
 
 <% end %>

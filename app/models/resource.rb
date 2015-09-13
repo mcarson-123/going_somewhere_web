@@ -2,8 +2,9 @@ class Resource
   include ActiveModel::Model
 
   class << self
-    def get_all
-      all = conn.get("/#{endpoint_name}")
+    def get_all(query_params={})
+      query_string = query_params.blank? ? "" : build_query_string(query_params)
+      all = conn.get("/#{endpoint_name}#{query_string}")
       objects_hash = JSON.parse(all.body)["data"]
       objects = []
       objects_hash.each do |obj_hash|
@@ -18,6 +19,10 @@ class Resource
       self.new(obj_hash)
     end
 
+    def destroy_by_id(id)
+      conn.delete("/#{endpoint_name}/#{id}")
+    end
+
     def create(params={})
       data_params = {}
       data_params[:data] = params
@@ -27,8 +32,17 @@ class Resource
 
     private
 
+    def build_query_string(query_params)
+      query_string = "?"
+      query_params.each do |k, v|
+        query_string += "&" unless query_string.last == "?"
+        query_string += "#{k}=#{v}"
+      end
+      query_string
+    end
+
     def endpoint_name
-      @name ||= self.to_s.camelcase.downcase.pluralize
+      @name ||= self.to_s.camelcase.underscore.pluralize
     end
 
     def conn
@@ -40,4 +54,5 @@ class Resource
     end
 
   end
+
 end

@@ -1,0 +1,9 @@
+<%- @lists.each do |list| %>
+  <ul>
+    <li><%= link_to list.name, list_path(id: list.id) %></li>
+    <li><%= list.created_at %></li>
+    <li><%= list.updated_at %></li>
+  </ul>
+  <%= button_to "delete", list_path(id: list.id, trip_id: list.trip_id), method: :delete %>
+<%end%>
+
